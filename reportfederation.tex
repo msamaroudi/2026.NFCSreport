@@ -1,5 +1,6 @@
 \documentclass[11pt]{scrartcl}
 \usepackage[a4paper, top=20mm, bottom=20mm, left=20mm, right=20mm]{geometry}
+\usepackage{graphicx}  % required for including images
 \usepackage{blindtext}
 \usepackage{authblk}
 \renewcommand\Authfont{\normalsize}
@@ -29,9 +30,11 @@
   {\usebibmacro{postnote}}
 \renewcommand*{\bibfont}{\normalfont\normalsize\sffamily}
 \usepackage{enumitem}
-\setenumerate[1]{label=\thesubsection.\arabic*.}
+\setenumerate[1]{label=\thesubsection.\arabic*}
 \setenumerate[2]{label*=\arabic*.}
-
+\usepackage{xltabular}   % page-breaking + X columns; pulls in longtable & tabularx
+\usepackage{booktabs}
+\setlength{\LTpre}{0pt}  % no extra space before the table (sits snug under the heading)
 %for the header
 \usepackage{fancyhdr}
 \usepackage{lastpage}
@@ -65,32 +68,31 @@ This report aims to reflect the collective voice of the Arts \& Humanities (A\&H
  supported by the Infrastructure for Digital Arts and Humanities (iDAH).   
 
 \section{Digital Research Infrastructure Ecosystem in Arts and Humanities}
-The UKRI-DRI priorities are reflected in the Arts and Humanities DRI landscape, which encompasses a broad range of resources, networks and mechanisms. These aim to support innovative data and compute-intensive research and practice across a wide range of sub-disciplines, as described in the AHRC’s funding priorities (AHRC 2026), as well as across interdisciplinary research strands.  Within DISKAH, we conceptualise DRI in Arts and Humanities as bringing together the components described in the following sub-sections. 
+The Arts and Humanities DRI landscape reflects both the priorities of UKRI-DRI and those of the communities who have extensive experience curating and managing large-scale data. These communities are heterogeneous, bringing together researchers, practitioners, and digital research technical professionals (dRTPs).
 
-\subsection{Communities} 
-They include researchers, practitioners, and digital research technical professionals (dRTPs), as well as training frameworks and collaboration networks that support skills development, knowledge exchange, and community advocacy. iDAH engages with the A\&H
-research and practice communities to improve skills and promote the overall
-culture around data, tools and software, for instance, in terms of practices,
-value and role in decision making, through initiatives such as the \href{https://www.diskah.org/}{Digital
-Skills in Arts and Humanities (DISKAH) Network}, the \href{https://www.ccpahc.ac.uk/}{Collaborative Computational Project for Arts, Humanities, and Culture (CCP-AHC)} and \href{https://www.turing.ac.uk/research/research-projects/dataculture-building-sustainable-communities-around-arts-and-humanities}{DataCulture}.  
-\subsection{Data services and repositories} 
-This include institutional, national and international data stores and services. They also include the AHRC-iDAH-funded data services in the UK. iDAH gives researchers dedicated data services which cater for different disciplines
+One of the most visible components of this infrastructure is the \textbf{data services}, including the AHRC-iDAH-funded data services. iDAH provisions for data services which cater for different disciplines
 and/or types of data, including the Distributed System of Scientific
-Collections (DiSSCo); the Archaeology Data Service (ADS); the Literary and
-Linguistic Data Service (LLDS); the British Library Research Repository; the
-Museum Data Service (MDS), the Heritage Science Data Service (HSDS), and the
-Enact Practice Research Data Service.
-\subsection{Systems} 
-These include software components, such as workflows, code libraries, tools and other code, as well as platforms and hardware, including high-performance computing at local, regional, national and international levels 
+Collections (DiSSCo); the Archaeology Data Service (ADS); the Literary and Linguistic Data Service (LLDS); the British Library Research Repository; the Museum Data Service (MDS), the Heritage Science Data Service (HSDS), and the Enact Practice Research Data Service.
+
+Moreover, \textbf{software components}, such as code libraries and tools, have been built during the research process.
+The long-term maintenance of these software components remains a challenge, as cultures around software engineering, including version control, documentation, and long-term maintenance, are not well embedded in the community. These needs are   
+Currently being addressed by the scoping project \emph{Toward a new CCP for Arts, Humanities, and Culture research (CCP-AHC)} \cite{bell_2025_17099176}, which advocates for better capturing use cases and "lessons learned", and making infrastructure relevant to AHC research, and tools discoverable. 
+
+The use of DRI \textbf{hardware components} and high-performance computing systems within research methods varies across the community. In most cases, researchers use institutional DRI, and the number of researchers with A\&H projects applying for access to DRI Tier 1 and 2 hardware components remains low. Initiatives such as the \href{https://www.diskah.org/}{Digital
+The Skills in Arts and Humanities (DISKAH) Network} aims to broaden access by developing digital skills and promoting use cases amongst communities.
 
 
+There are also various capacity-building, training frameworks and collaboration networks that support skills development, knowledge exchange, and community advocacy. iDAH engages with the A\&H
+research and practice communities to improve skills and promote the overall culture around data, tools and software, for instance, through the \href{https://www.turing.ac.uk/research/research-projects/dataculture-building-sustainable-communities-around-arts-and-humanities}{DataCulture} project.  
+
+Based on these existing components and to develop a roadmap for federating access to them, the following sections explain the methodology for developing an operational roadmap.
 
 \section{Methodology}
 
 The research conducted to establish the requirements of the A\&H
 communities for federation involved a thorough review of established research and evidence published in relevant literature (\cite{beavan_2025a_15083396,beavan_2025b_15083632,bell_2025_17099176,Black19102024,connected,collier25,de_roure_2022_4716148,evans23,hawkins_2024_14006955,shoaib_sufi_2023_7686348,ross_2024_13710266,romanova_2021_5105938,Rodriguez22,wrro203045,Zwiggelaar22,taylor_2022_10518740,sichani_2023_8177926,McGillivray2020}). 
 
-These reports and publications were selected based on the authors' knowledge of the DRI landscape evolution in Arts and Humanities over the last few years, in parallel with or driven by the development and funding of the iDAH programme, as well as other community initiatives, notably the development of the UK-Ireland Digital Humanities Association. This literature was compiled and analysed thematically highlighting insights from the A\&H subdisciplines, as well as cross-disciplinary research, in terms of data practices, tools and workflows, collaboration and professional
+These reports and publications were selected based on the authors' knowledge of the DRI landscape evolution in Arts and Humanities over the last few years, in parallel with or driven by the development and funding of the iDAH programme, as well as other community initiatives, notably the development of the UK-Ireland Digital Humanities Association. This literature was compiled and analysed thematically, highlighting insights from the A\&H subdisciplines, as well as cross-disciplinary research, in terms of data practices, tools and workflows, collaboration and professional
 development. 
 % Thereafter, these insights informed a gathering exercise on
 % the requirements of data service providers regarding federation, based on their
@@ -111,17 +113,17 @@ can effectively support the broad A\&H research and practice communities.
 \textbf{Communities use and produce heterogeneous datasets of varying complexities involving multiple formats, parts, sizes and data types. While textual data has the strongest representation, a large percentage of researchers work with multidimensional data, including born digital data (e.g. spatial, numerical, visual, audiovisual) and sensor data (real-time). The resulting datasets are often well curated in accordance with the FAIR (findable, accessible, interoperable, reusable) principles, enabling the structuring and connecting of knowledge. Researchers also generate a range of software artefacts, particularly interactive applications, mobile apps, and server-side applications. Researchers and practitioners are interested in the use of DRI for the retention, use/reuse and preservation of these outputs.}
 
 \begin{enumerate}[resume]
-\item DRI workflows should accommodate heterogeneous datasets with diverse data types, varied and evolving sizes, ensuring that processing pipelines, tools, and interfaces effectively offer effective support (\cite{Rodriguez22,de_roure_2022_4716148}; \cite[4]{bell_2025_17099176}; \cite[38]{taylor_2022_10518740}). 
+\item\label{itm:datatypes} DRI workflows should accommodate heterogeneous datasets with diverse data types, varied and evolving sizes, ensuring that processing pipelines, tools, and interfaces effectively offer effective support (\cite{Rodriguez22,de_roure_2022_4716148}; \cite[4]{bell_2025_17099176}; \cite[38]{taylor_2022_10518740}). 
 File formats and sizes for workflows, such as migration, movement and emulation, should be recommended to the community 
 (\cite[5]{wrro203045}).
 
 
-\item DRI should be capable of sustainably hosting and preserving complex, full‑stack scholarly outputs (e.g., data, software, interfaces, documentation) (\cite[14]{de_roure_2022_4716148}).   
+\item\label{item:sus} DRI should be capable of sustainably hosting and preserving complex, full‑stack scholarly outputs (e.g., data, software, interfaces, documentation) (\cite[14]{de_roure_2022_4716148}).   
 
-\item DRI should embed copyright policy into technical workflows so that systems can automatically determine whether an asset can be shared, reused, or distributed. Intellectual Property Rights must be agreed via a governance mechanism, for instance, centrally and by data provider (\cite{de_roure_2022_4716148}).
+\item\label{itm:ipr} DRI should embed copyright policy into technical workflows so that systems can automatically determine whether an asset can be shared, reused, or distributed. Intellectual Property Rights must be agreed via a governance mechanism, for instance, centrally and by data provider (\cite{de_roure_2022_4716148}).
 
 
-\item DRI should support licensing for granular release of content, enabling researchers or data owners to specify conditions for access, downloading, and reuse on a per‑request basis (\cite[5]{wrro203045}).
+\item\label{itm:gran} DRI should support licensing for granular release of content, enabling researchers or data owners to specify conditions for access, downloading, and reuse on a per‑request basis (\cite[5]{wrro203045}).
 
 \item DRI should support the adoption of a robust Data Management Plan (DMP) following best practices and clear data policies 
 (\cite[50]{taylor_2022_10518740}; \cite[7,9]{hawkins_2024_14006955}).
@@ -136,16 +138,14 @@ Researchers require guidance on how software should be managed, documented, stor
 \noindent\textbf{Communities prioritise sharing and enabling access to both data and software outputs. Once data are openly available on web platforms, interoperability is viewed as a key mechanism for connecting datasets across institutions and disciplinary domains.}
 
 \begin{enumerate}[resume]
-\item DRI should support researchers involved in funded research in depositing their data and software outputs in appropriate repositories upon project completion (\cite[92]{taylor_2022_10518740}). These outputs should include DOIs, clear licensing and count towards professional recognition and career development e.g. via REF submission (\cite[38]{taylor_2022_10518740}; \cite[7]{hawkins_2024_14006955}; \cite[8]{duran_del_fierro_2025_17641455}).
+\item DRI should support researchers involved in funded research in depositing their data and software outputs in appropriate repositories upon project completion (\cite[92]{taylor_2022_10518740}). These outputs should include DOIs, clear licensing and count towards professional recognition and career development, e.g. via REF submission (\cite[38]{taylor_2022_10518740}; \cite[7]{hawkins_2024_14006955}; \cite[8]{duran_del_fierro_2025_17641455}).
 
-change to "..." you could add Duran Del Fierro p.8 to the reference list where they talk about trust and control
-
-\item DRI should support discoverability, access, use/reuse, and interactivity with datasets, including access to data via APIs, direct download, SPARQL, search and visualisation interfaces, and optimisation for search engines, so that research is indexed, visible, and discoverable 
+\item\label{itm:dis} DRI should support discoverability, access, use/reuse, and interactivity with datasets, including access to data via APIs, direct download, SPARQL, search and visualisation interfaces, and optimisation for search engines, so that research is indexed, visible, and discoverable 
 (\cite[12,18]{de_roure_2022_4716148}; \cite{Rodriguez22}; \cite[5]{wrro203045}).  
 
-\item DRI should support technologies for linking and supporting discoverability by aggregators. Data should be linked across the sector nationally and internationally to unlock research potential (\cite[11]{de_roure_2022_4716148}; \cite{Rodriguez22}; \cite[9,11]{Black19102024}; \cite[30]{taylor_2022_10518740}; \cite[5,20]{Zwiggelaar22}; \cite[14]{hawkins_2024_14006955}).   
+\item\label{itm:agg} DRI should support technologies for linking and supporting discoverability by aggregators. Data should be linked across the sector nationally and internationally to unlock research potential (\cite[11]{de_roure_2022_4716148}; \cite{Rodriguez22}; \cite[9,11]{Black19102024}; \cite[30]{taylor_2022_10518740}; \cite[5,20]{Zwiggelaar22}; \cite[14]{hawkins_2024_14006955}).   
 
-\item DRI should establish minimum requirements for data integrity and standardisation, and agree on ontologies, taxonomies, and vocabularies for indexing, naming, and cataloguing. Workflows with Machine learning methods should be explored (\cite[53]{de_roure_2022_4716148}; \cite[14]{hawkins_2024_14006955}). 
+\item\label{itm:ont} DRI should establish minimum requirements for data integrity and standardisation, and agree on ontologies, taxonomies, and vocabularies for indexing, naming, and cataloguing. Workflows with Machine learning methods should be explored (\cite[53]{de_roure_2022_4716148}; \cite[14]{hawkins_2024_14006955}). 
 \end{enumerate}
 
 \noindent\textbf{Communities have as a key consideration the long-term data preservation of the data.}
@@ -157,17 +157,17 @@ beavan_2025b_15083632}).
 \item DRI should offer support at the start of the project regarding standards and guidelines for archiving and preservation that facilitate future data science endeavours, improving accessibility and reducing data wrangling effort; as well as at the end of the project when preparing derived datasets for dissemination 
 (\cite[4,18]{de_roure_2022_4716148}).
 
-\item DRI should consider adopting models for digital preservation readiness, such as the NDSA Levels of Digital Preservation or the Digital Preservation Coalition’s Rapid Assessment Model (DPC RAM) (\cite[4,21]{Zwiggelaar22}).  
+\item DRI should consider adopting models for digital preservation readiness, such as the NDSA Levels of Digital Preservation or the Digital Preservation Coalition's Rapid Assessment Model (DPC RAM) (\cite[4,21]{Zwiggelaar22}).  
 \end{enumerate}
 
 \noindent\textbf{Communities have a major concern for the security of the data, given the sensitive nature or other aspects related to curation and use of these datasets.} 
 
 \begin{enumerate}[resume]
-\item DRI should address security risks and be capable of storing, managing, and providing access to sensitive data 
+\item\label{itm:sec} DRI should address security risks and be capable of storing, managing, and providing access to sensitive data 
 (\cite{de_roure_2022_4716148}; \cite[5]{wrro203045}). Trusted Research Environments (TREs) should be available for sensitive data, including historically and commercially sensitive data, as well as stray data. These TREs should have policies tailored to sensitive content rather than a focus on personal data to minimise excessive barriers to research 
 (\cite[4]{de_roure_2022_4716148}; \cite[5]{Zwiggelaar22}).
 
-\item DRI should be compliant with defined cybersecurity requirements and provide explicit governance mechanisms (\cite[5,6]{collier25}).  
+\item\label{itm:cyb} DRI should be compliant with defined cybersecurity requirements and provide explicit governance mechanisms (\cite[5,6]{collier25}).  
 
 
 \item The user friction introduced by DRI Cybersecurity approaches on identity management should be reduced when jumping from institutional systems to data and compute resources across the DRI (\cite[21]{collier25}).  
@@ -178,7 +178,7 @@ beavan_2025b_15083632}).
 \noindent\textbf{Communities can benefit from reproducible workflows for data science approaches.}
 
 \begin{enumerate}
-\item DRI should support scalable and reproducible data science and Artificial Intelligence (AI) research workflows, including efficient ways to sort, link, understand, and visualise heterogeneous data in a systematic, configurable, and reproducible manner (\cite[12]{sichani_2023_8177926}). In turn, these workflows could significantly accelerate research and promote cumulative data enrichment 
+\item\label{itm:ai} DRI should support scalable and reproducible data science and Artificial Intelligence (AI) research workflows, including efficient ways to sort, link, understand, and visualise heterogeneous data in a systematic, configurable, and reproducible manner (\cite[12]{sichani_2023_8177926}). In turn, these workflows could significantly accelerate research and promote cumulative data enrichment 
 (\cite[4]{de_roure_2022_4716148}; \cite[43]{shoaib_sufi_2023_7686348}).  
 
 \item DRI should provide supported tools and environments for research workflows and pipelines of connected processes and algorithms using virtualisation tools such as virtual machines, Docker, Singularity containers and Kubernetes virtual clusters 
@@ -192,17 +192,17 @@ Workflows are likely to migrate between physical infrastructures
 \noindent\textbf{Communities increasingly conduct large-scale analyses that demand computational resources and scalable approaches. }
 
 \begin{enumerate}[resume]
-\item DRI should provide easier access to dedicated High-Performance Compouting (HPC) systems, scalable cloud services, and processing power to handle large-scale data
+\item\label{itm:hpc} DRI should provide easier access to dedicated High-Performance Computing (HPC) systems, scalable cloud services, and processing power to handle large-scale data
 (\cite[62]{de_roure_2022_4716148}; \cite[2]{bell_2025_17099176}; 
 \cite[72]{shoaib_sufi_2023_7686348}).   
 
-\item DRI should provide endpoints and opportunities to generate analysis-ready data for machine learning and to run subsequent analyses at the at the data provider level (e.g., non-consumptive research/analytics) 
+\item\label{itm:ana} DRI should provide endpoints and opportunities to generate analysis-ready data for machine learning and to run subsequent analyses at the data provider level (e.g., non-consumptive research/analytics) 
 (\cite[4,66]{de_roure_2022_4716148}; \cite[5]{wrro203045}).
 
 \item DRI needs for monitoring approaches to track metrics, such as CPU usage, project allocations, detailed GPU storage usage, user-facing energy usage, and carbon tracking data 
 (\cite[14,15]{collier25}).  
 
-\item DRI needs to mitigate Artificial Intelligence (AI)-related risks, for example, via an ethical governance framework (e.g. an ethics board and in compliance with CARE principles), a human framework for testing and training of algorithms (human-in-the-loop). A training programme to address concerns around the trust and reliability of AI, including its accuracy and data quality, unexplained black-box operations, bias and privacy, should support users to inform their decisions (\cite[4]{Zwiggelaar22}).   
+\item\label{itm:aigov} DRI needs to mitigate Artificial Intelligence (AI)-related risks, for example, via an ethical governance framework (e.g. an ethics board and in compliance with CARE principles), a human framework for testing and training of algorithms (human-in-the-loop). A training programme to address concerns around the trust and reliability of AI, including its accuracy and data quality, unexplained black-box operations, bias and privacy, should support users to inform their decisions (\cite[4]{Zwiggelaar22}).   
 \end{enumerate}
 
 \noindent\textbf{Communities predominantly rely on graphical and visually rich interfaces for workflows and interfaces, with limited familiarity with command-line tools and programming languages.}
@@ -223,7 +223,7 @@ Accessibility standards should be considered
 \item DRI should support open data and open-source cultures and established ways for sharing access to high-quality data with appropriate licensing, interoperability standards and documentation 
 (\cite[17]{de_roure_2022_4716148}; \cite[2]{bell_2025_17099176}; \cite[58]{shoaib_sufi_2023_7686348}; \cite[1,2]{hawkins_2024_14006955}).   
 
-\item DRI should encourage FAIR data principles and Creative Commons open licences with options for a restricted licence if data would otherwise not be ingested (\cite[4,21]{Zwiggelaar22}).  
+\item\label{itm:cc0} DRI should encourage FAIR data principles and Creative Commons open licences with options for a restricted licence if data would otherwise not be ingested (\cite[4,21]{Zwiggelaar22}).  
 
 \item DRI should promote open research principles tailored to arts and humanities research approaches 
 (\cite[51]{taylor_2022_10518740}).
@@ -235,9 +235,9 @@ Accessibility standards should be considered
 \noindent\textbf{Communities want user journeys and use cases for digital methods as a means to support guided access of DRI.}
 
 \begin{enumerate}[resume]
-\item DRI should adopt taxonomies such as the TADRIAH taxonomy to categorise popular tasks with the view of guiding researchers. DRI should advise on appropriate computing architectures and frameworks for their deployment, according to the established requirements of these systems (e.g., data access, CPU/GPU-intensive).   
+\item DRI should adopt taxonomies, such as the TADRIAH taxonomy, to categorise popular tasks, to guide researchers. DRI should advise on appropriate computing architectures and frameworks for deployment, based on the established requirements of these systems (e.g., data access, CPU/GPU-intensive).   
 
-\item DRI should elicit and showcase usable pathfinder projects and demonstrator/pilot applications for popular tasks to support uptake by the community, learning by other people’s workflows and overall experiences (\cite[3,9]{bell_2025_17099176}; \cite[5]{evans23}).
+\item DRI should elicit and showcase usable pathfinder projects and demonstrator/pilot applications for popular tasks to support uptake by the community, learning by other people's workflows and overall experiences (\cite[3,9]{bell_2025_17099176}; \cite[5]{evans23}).
 
 \item DRI should provide a brokerage process or switchboard at the point of access to help users identify the most appropriate resource/federated access and guide users to various components of the infrastructure according to their needs 
 (\cite[5]{bell_2025_17099176}; \cite{connected}).  
@@ -252,10 +252,10 @@ The process should include matching datasets with a suitable repository and guid
 (\cite{Rodriguez22}; \cite[13]{Black19102024})
 \end{enumerate}
 
-\noindent\textbf{Communities employ a wide range of research practices and methodologies, including ‘living’ practices, to produce outputs and datasets. Hence, they carry out a wide range of processes on datasets throughout the research lifecycle. }
+\noindent\textbf{Communities employ a wide range of research practices and methodologies, including 'living' practices, to produce outputs and datasets. Hence, they carry out a wide range of processes on datasets throughout the research lifecycle. }
 
 \begin{enumerate}[resume]
-\item DRI should support a structured and granular approach to versioning, considering both work under development and final outputs, and reflecting on the relationship between changes in the data and particular actions or methodologies 
+\item\label{itm:ver} DRI should support a structured and granular approach to versioning, considering both work under development and final outputs, and reflecting on the relationship between changes in the data and particular actions or methodologies 
 (\cite[53]{de_roure_2022_4716148}; \cite[4]{wrro203045}). 
 The UK Registry for the Research Activity Identifier (RAiD) and DataCite should be considered, as they already support versioning of DOIs for multiple versions of datasets (\cite[5]{evans23}).  
 \end{enumerate}
@@ -267,11 +267,11 @@ The UK Registry for the Research Activity Identifier (RAiD) and DataCite should 
 \begin{enumerate}
 \item DRI should allow for authorship of research outputs by individuals and teams across institutions (\cite[5]{evans23}). Metadata based on existing taxonomies, such as the Contributor Roles Taxonomy (CRediT), should be considered.  
 
-\item DRI should support access by teams formed of national and international academic and non-academic users, including access to functionalities such as data transfer/migration, permission management, and usage monitoring. Copyright and licensing of DRI-related resources should support agreements among multiple institutions 
-(\cite{de_roure_2022_4716148}; \cite[5]{Zwiggelaar22}). Collaboration can be enabled via ‘short-lived collaborations' and ‘virtual organisations’ that bring together staff from multiple institutions, often in different countries 
+\item DRI should support access for teams composed of national and international academic and non-academic users, including functionality such as data transfer/migration, permission management, and usage monitoring. Copyright and licensing of DRI-related resources should support agreements among multiple institutions 
+(\cite{de_roure_2022_4716148}; \cite[5]{Zwiggelaar22}). Collaboration can be enabled via 'short-lived collaborations' and 'virtual organisations' that bring together staff from multiple institutions, often in different countries 
 (\cite[7]{collier25}).
 
-\item DRI should consider reusable tools and approaches to share a minimum set of information about a researcher, including authentication protocols and identifiers (e.g. ORCID)
+\item\label{itm:aut} DRI should consider reusable tools and approaches to share a minimum set of information about a researcher, including authentication protocols and identifiers (e.g. ORCID)
 (\cite[6]{collier25}).
 
 
@@ -301,7 +301,7 @@ Environmental awareness for doing digital research should also be considered
 \noindent\textbf{Communities consider Digital Research Technical Professionals (DRTPs) to be key stakeholders to expand access to DRI.}  
 
 \begin{enumerate}[resume]
-\item DRI should ensure continuous equitable collaboration with dRTPs, including dedicated and one-to-one ‘clinic’ style support 
+\item DRI should ensure continuous equitable collaboration with dRTPs, including dedicated and one-to-one 'clinic' style support 
 (\cite[48]{de_roure_2022_4716148}; \cite[8]{bell_2025_17099176}; \cite[10]{Black19102024}; \cite[17]{romanova_2021_5105938}; \cite[12]{sichani_2023_8177926}; \cite[33]{taylor_2022_10518740}; \cite[1,2]{hawkins_2024_14006955};\cite{beavan_2025a_15083396}).
 
 \item DRI should leverage community managers to broker access to DRTPs/RSEs and widen engagement with DRI 
@@ -315,7 +315,7 @@ Environmental awareness for doing digital research should also be considered
 \noindent\textbf{Communities see professional development across roles as essential to realising the full potential of DRI.}
 
 \begin{enumerate}[resume]
-\item DRI should invest in the human aspect to make infrastructure viable, including widening opportunities for individuals with clear progression paths, funding beyond projects and improved salaries, as well as career development opportunities 
+\item\label{itm:hum} DRI should invest in the human aspect to make infrastructure viable, including widening opportunities for individuals with clear progression paths, funding beyond projects and improved salaries, as well as career development opportunities 
 (\cite[71]{de_roure_2022_4716148}; \cite[13,14]{romanova_2021_5105938}; \cite[8]{sichani_2023_8177926}; \cite[33]{taylor_2022_10518740};\cite{duran_del_fierro_2025_17641455}).   
 \end{enumerate}
 
@@ -326,7 +326,7 @@ Environmental awareness for doing digital research should also be considered
 \item DRI should support submissions to national evaluation frameworks, including framing data and software as outputs and allowing for the documentation of the research journeys
 (\cite[4]{wrro203045}; \cite[71]{shoaib_sufi_2023_7686348}; \cite[41]{taylor_2022_10518740}). 
 
-\item DRI should provide portable access to its infrastructure and allow researchers’ outputs to be portable. Policies should be flexible to accommodate staff mobility (\cite[37]{taylor_2022_10518740}) as researchers transition between academia, independent research organisations (IROs), and other sectors, often early in their careers. 
+\item DRI should provide portable access to its infrastructure and allow researchers' outputs to be portable. Policies should be flexible to accommodate staff mobility (\cite[37]{taylor_2022_10518740}) as researchers transition between academia, independent research organisations (IROs), and other sectors, often early in their careers. 
 
 \item DRI should allow for software produced during research to be accessed as a research output, with software citation and reproducibility underpinning impact metrics 
 (\cite[7]{sichani_2023_8177926}).  
@@ -343,49 +343,263 @@ Environmental awareness for doing digital research should also be considered
 (\cite[7]{bell_2025_17099176}; \cite[13]{Black19102024}; \cite[29]{ross_2024_13710266}; \cite[21]{Zwiggelaar22}; \cite[2]{hawkins_2024_14006955}).  
 
 \item DRI should consider different funding scenarios and 
-strike an equitable balance aware of power asymmetries, give for example that larger organisations usually attract bigger funding 
+strike an equitable balance, aware of power asymmetries, for example, that larger organisations usually attract bigger funding 
 (\cite[21]{romanova_2021_5105938};\cite{duran_del_fierro_2025_17641455}). 
 DRI should consider supporting users post-project completion
 (\cite[14]{de_roure_2022_4716148}; \cite[41]{taylor_2022_10518740}). 
  
 
-\item DRI should reflect upon the success and failure of previous infrastructure to successfully develop future strategies 
+\item DRI should reflect upon the success and failure of previous infrastructure to develop future strategies successfully 
 (\cite[21]{romanova_2021_5105938}).
 
 \end{enumerate}
-\section{Interviews with data services}
+\section{Requirements for Data Federation: Insight from the AHRC-IDAH Data Services}
+A series of interviews with representatives of \emph{six} AHRC-IDAH data services was conducted to examine data service providers' perspectives. The services interviewed were Distributed System of Scientific Collections (DiSSCo); the Archaeology Data Service (ADS); the Literary and Linguistic Data Service (LLDS); the British Library Research Repository; the Museum Data Service (MDS); the Heritage Science Data Service (HSDS). At the time of the research, the Enact Practice Research Data Service had not yet been materialised; hence, it was not included in the sample. 
+The interview focused on exploring the nature of the data, data practices within the community and the challenges and opportunities for the infrastructure in a federated environment.  The answers are compiled focusing in the various sections in which the questionnaire was organised as presented in 
+Appendix \ref{interview}.
+
+\subsection{Data types and formats}
+The interviews confirmed that there is significant heterogeneity in data types, formats, sizes, and data management practices across services (requirement~\ref{itm:datatypes}).  
+Data types currently supported by data services can include images, media, 3D, GIS shapefiles, geophysics data, LIDAR, volumetric data and genomic sequences. While most services host primary assets, others aggregate metadata from institutions, such as Galleries, Libraries, Archives, and Museums (GLAM). A common narrative across all services is the increase in data, specifically from commercial infrastructure projects (e.g., archaeological digs) or large-scale digitisation projects. 
+
+\subsection{FAIR data practices}
+While good practices can be found at the data-service level regarding FAIR practices, further technical coordination across data services is required to meet requirements for discoverability (requirements~\ref{itm:dis,itm:agg}).
+
+Building on strong expertise in data curation, the data services employ domain-specific metadata schemas, e.g., the Darwin Core for natural history data, the Monument Inventory Data Standard (MIDAS), and the Spectrum for museum data, and there is a desire to move towards the use of standardised ontologies (requirement~\ref{itm:ont}). DOIs are the standard for datasets across data services, yet some services report a lack of a citation culture.  
+
+Data services encourage the use of open licenses, such as CC-BY and CC0, to facilitate reuse (requirement~\ref{itm:cc0}. Deposit agreements allow data services to distribute data rather than transfer the copyright, ensuring the depositor  retains  ownership. Where an agreement is unavailable, the institution must own the copyright to grant a license, which is not practical in all cases.
+
+When providing access to data beyond licensing restrictions, the primary sensitivities include legal considerations, such as the Legal Deposit Libraries (Non-Print Works) Regulations 2013, the Data Protection Acts, and the Copyright, Designs and Patents Act 1988 (CDPA). The implication is that access should be confined to controlled environments and used only for permitted purposes as identified in requirements~\ref{itm:ipr} and \ref{itm:gran}. For instance, the British Library is exploring the use of physical walled-off sections of reading rooms to provide secure access to restricted data, though remote access remains legally difficult. There is wide interest in the potential of Trusted Research Environments (TREs) to enable controlled access to sensitive or copyrighted data. 
+  
+There is evidence of versioning approaches (see requirement~\ref{itm:ver}), including support for  versioning  records, linking new versions to old ones and allowing researchers to cite specific iterations of data used in citations. For instance, \emph{living records} or continuous updates are a hallmark of biological data (e.g., re-identifying  a species) in the DiSSCo infrastructure.  Moreover, versioning is considered a core requirement for some of the data services going forward.
+
+
+\subsection{Access and Connectivity}
+A common model for access across data services is \emph{Search and Download}. Bulk exports/downloads can be provided by data services, often through scripts or long lists of URLs. 
+However, moving large-scale data to external compute facilities can be a major bottleneck in most cases.
+
+In addition, most data services allow for programmatic access to metadata via the HTTP-based Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH). Some, such as ADS and DiSSCo, provide additional REST APIs for access. Often, API rate limits are used. While there is some positive views on enabling data-crawling and batch analysis, the impact on the infrastructure needs to be mitigated. A significant concern is the impact of unregulated AI bots crawling repositories and straining infrastructure. Hence, considerations regarding gorvernance, cybersecurity (requirement~\ref{itm:cyb}) and ensuring local servers cope with demand need to be taken oboard.
+
+Various projects have explored Artificial Intelligence workflows for data mining and metadata enhancement. 
+For instance, computer vision models are used for automated species identification from images, and NLP is used to transcribe millions of handwritten specimen labels in DiSSCo. These workflows facilitate linking specimens to collectors, publications, and DNA sequences (requirement~\ref{itm:ai}). While most data servcies are using AI for this type of \emph{back-room} tasks, formal AI policies are required, as these are largely absent or tethered to broader university statements ((requirement~\ref{itm:aigov})). 
+
+Overall, there is a strong interest in a federated interface between data and compute infrastructures to allow users to move/use data into their own software environments (requirements~\ref{itm:hpc} and \ref{itm:ana}). 
+
+Moreover, there is a strong interest in federated Identity and Authentication Management (IAM) (requirement~\ref{itm:aut}). Currently, only the OTA uses a federated Shibboleth model, while other services rely on institutional accounts or IP-based access within an institution. There was strong interest in providing authenticated user functionality, such as API access, cross-search of sensitive metadata, and access to the Virtual Research Environment (VRE).
+
+\subsection{Research Impact}
+Certifications (e.g., CoreTrustSeal) and long-term sustainability (see requirement~\ref{item:sus}) are considered positive stories, while enabling access, large-scale aggregation, and the reuse of data are often desired impacts.  For data services, ongoing challenges include sustainably maintaining the infrastructure, long-term preservation and protecting against cybersecurity threats (requirement~\ref{itm:sec}).
+
+A universal \emph{pain point} is the difficulty of recruiting and retaining digital research technical professionals (requirement~\ref{itm:hum}), where university grading systems often pose barriers to hiring DRTPs within HEIs. 
+
+\subsection{Federation Aspirations}
+In terms of federation, there is strong support for a suite of UKDRI national services rather than a single, monolithic platform. Priorities for data services include improved search and discoverability, shared AI infrastructure (e.g., public Large Language Model Infrastructure for research), and improved connectivity between compute and data. Distribution of technical infrastructure, such as off-site distributed long-term storage and backups, to improve preservation, disaster and cybersecurity resilience is seen as a potential area of coordination in a federated ecosystem.
+In particular, there was a strong note that a level of security and \emph{arms-length} protection could be provided through federation, compared to what an individual institution can achieve on its own. 
+
+A universal \emph{pain point} is the difficulty to recruit and retain digital research technical professionals (requirement~\ref{itm:hum}). Services cannot compete with private-sector salaries and data services rely on DRTPs within HEI. 
+
+\subsection{Challenges for federation from data service perspective}
+We group these challenges into basic, intermidate and advanced:
+% \subsubsection{Basic challenges}
+% \begin{enumerate}
+% \item Federating search across multiple services from a single query.
+% \item Linking discovered data with compute power.
+% \item Reproducible and shareable workflows.
+% \item Reconciliation of entities (proven via Wikidata, though could be extended).
+% \end{enumerate}
+% \subsubsection{Intermediate challenges}
+% \begin{enumerate}
+% \item A translation layer between services (via the SourceProfile node).
+% \item A clear citation pathway from result to reference.
+% \item Data-enrichment pipelines (via the Wikidata Enrich, HTML Extraction, Geocoding and assorted LLM Inference nodes).
+% \end{enumerate}
+% 2.3  Advanced challenges — conceptually addressable in the proposed interface
+% • Moving data at petabyte scale.
+% • A Trusted Research Environment expressed as a node (“TRE-as-Node”), with secure authentication.
+% • Copyright (LLDS, BL) and sensitivity (NHM, ADS) constraints on access.
+% • Deflecting AI crawlers through authorised IP ranges or VPNs built into the infrastructure.
+% • Working with primary data and literature, not only metadata — for example, grey-literature analysis.
+
 \section{Prototyping federation of data services and compute}
-\section{Trailing training approaches}
+
+
+
+
 \section{Recommendations}
-Our understanding of the DRI landscape in the Arts and Humanities and the following recommendations are informed by reviewing evidence published in relevant literature, conducting interviews with data services, shaping and delivering the DISKAH fellowship programme with A\&H researchers, and engaging in various outreach and dissemination opportunities at national and international levels. Such experiences can be distilled into valuable insights and lessons learned, which, in turn, can inform DRI directions to address better the community's requirements for compute- and data-intensive research and practice. 
+Our understanding of the DRI landscape in the Arts and Humanities and the following recommendations are informed by the activities described above: literature review, conducting interviews with data services, trailing approaches for visual interfaces, shaping and delivering the DISKAH fellowship programme with A\&H researchers, and engaging in various outreach and dissemination opportunities at national and international levels. 
 
-\begin{enumerate}
-\item \textbf{Diversify the provision of accessible DRI to promote the uptake by the A\&H community, \textit{Must have/Critical.}} \newline
-Providing user-friendly interfaces to facilitate workflow management, access to HPC environments, and cloud-based infrastructure is essential for the A\&H community. Lowering the entry barrier, including the application process, the support provided, and the user interfaces, can boost the community's confidence. In this context, addressing identity and authentication issues is equally important, as they also constitute major obstacles to accessing and engaging with HPC. 
+Such experiences can be distilled into valuable insights and lessons learned, which, in turn, can inform DRI directions to address better the community's requirements for compute- and data-intensive research and practice. The following recommendations are organised according to four key components of a federated compute stack which serves the requirements for the A\&H communities. These components are illustrated in Figure~\ref{fig:myfigure}, and include: 1) Infrastructure, Platforms \& Tools (\textit{\textbf{IPT}}); 2) Data (\textit{\textbf{DAT}}); 3) Access by Communities \& Skills Capacity (\textit{\textbf{ACC}}); and 4) Policy (\textit{\textbf{POL}}). Each recommendation is provided with a perceived priority from the community, and an owner within the UKRI-DRI ecosystem, including a) the funder, e.g. UKRI and DSIT (\textit{\textbf{funder}}); b) governance and advisory bodies, e.g. DRI advisory board and research counciles (\textit{\textbf{governance bodies}}); c) DRI ecosystem, e.g. Next National Supercomputing Service (NNSS), AI Research Resource (AIRR), and National Compute Resources (NCRs) (\textit{\textbf{DRI-compute services}}) and data services (DRI-data services); and d) the community of A\&H networks (\textit{\textbf{Communities}}).
 
-\item \textbf{Accommodate non-linear and iterative modes of working with data and digital methods in DRI for the A\&H community, \textit{Must have/Critical.}}\newline
-DRI provision should accommodate the various roles and iterative modes of working of the A\&H community, which is particularly relevant to those working in the practice, research and creative technology domains. Seamless communication of DRI components (e.g., data, code and workflow management, data access and sharing, collaborative environments) should support these modes of research and practice. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/fed.png}X
+    \caption{Diagram of a federated compute stack for the Arts and Humanities}
+    \label{fig:myfigure}
+\end{figure}
 
-\item \textbf{Provide access to AI models for inference to enable the A\&H community to facilitate large-scale data analysis, \textit{Could have/Desirable.}}\newline
-Given the increasing popularity of AI for the generation, shaping, and analysis of large-scale data, it would be beneficial for the A\&H community to have access to AI models for inference, alongside infrastructure to support relevant workflows and to deploy them efficiently for research and practice. 
- DRI-enabled research is of critical importance, given the scepticism that persists across the community and the need for accessible and clear training mechanisms. Highlighting DRI use cases with realistic research examples and reusable data, code and workflows can benefit the wider community and generate a ripple effect through the exemplification of reproducible research. 
-\item \textbf{Develop capacity-building initiatives targeting the A\&H community to foster open science practices, \textit{Should have/High-priority.}}\newline
-Capacity-building initiatives, such as the DISKAH Fellowship programme, dedicated workshops, webinars and train-the-trainer or mentoring schemes are essential to support effective embedding of open and FAIR data practices, reproducible workflows and open sharing of research outputs across the community. All these constitute integral elements of the DRI-enabled research. 
-Support collaboration between researchers/practitioners and digital research technical professionals (dRTPs) for effective DRI employment - Could have/Desirable 
-\item \textbf{Collaboration and brokerage mechanisms can be highly effective means to support DRI uptake, \textit{Must have/Critical.}}\newline 
-Optimising code and workflows, onboarding to HPC, overcoming technical difficulties and navigating unfamiliar infrastructure are only some of the areas where dRTP support has proved essential to the development of exemplary use cases for DRI-enabled A\&H research. 
-\item \textbf{Coordinate A\&H specific infrastructure and its connectivity through a technically oriented board to ensure consistency of efforts in the A\&H DRI landscape, \textit{Must have/Critical.}} \newline
-Ensuring the coordination through a technical oriented board with representatives from the iDAH funded data services, data preservation specialists and other AHRC/UKRI-funded DRI stakeholders is of critical importance to guide coherent, reliable planning and development towards federated DRI. 
-\item \textbf{Underpin the development of federated access to A\&H data repositories, \textit{Must have/Critical.}} \newline
-The development of tools and approaches which enable federated access to data across A\&H repositories is required. This constitutes an integral element for the provision of federated DRI services, allowing researchers and practitioners to effectively leverage FAIR data principles and boost the reproducibility of open research. 
-\item \textbf{Establish a dedicated community and skills manager to strengthen and sustain the engagement of the A\&H research and practice community with DRI ,\textit{(Must have/Critical).}}\newline
-This is critical role to ensure that a dedicated community and skills manager will nurture and grow a research and practice A\&H community while reinforcing capacity-building and skills development, as well as advocating for the community to effectively sustain engagement with DRI. 
-\item \textbf{Develop a network to connect people and coordinate a programme of events to support the sustainable and long-term engagement with DRI, \textit{(Must have/Critical)}}\newline
-Bringing technical and non-technical researchers and practitioners, building support mechanisms through train-the-trainer approaches, peer-to-peer knowledge exchange, disseminating training and showcasing use cases has the potential to enhance motivation, build the confidence of the community and sustain the employment of DRI-enabled methods in research and practice.  
+\protected\def\threedigit#1{\ifnum\value{#1}<10 0\fi\arabic{#1}}
+
+\newcommand{\owner}[1]{\textit{Action owner: #1}}
+\newcommand{\priority}[1]{\textit{Priority: #1}}
+% \threedigit is already defined in your preamble
+
+
+\subsection{Infrastructure, Platforms \& Tools (IPT)}
+\newcounter{riptcounter}
+\renewcommand{\theriptcounter}{R-IPT-\threedigit{riptcounter}}
+\newcommand{\ript}{\leavevmode\refstepcounter{riptcounter}\theriptcounter}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash\hsize=#1\hsize\linewidth=\hsize}X}
+\begin{xltabular}{\textwidth}{@{} P{0.6} P{2.4} P{0.5} P{0.5} @{}}
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Priority} & \textbf{Owner} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\ript & Standardise the provision of interactive notebook interfaces (e.g. Jupyter) and other low-barrier front-end usable without command-line skills. 
+& Must have 
+& DRI-compute services  \\
+\addlinespace
+\ript & Provide TREs for handling sensitive or access-restricted material.
+& Must have 
+& DRI-compute services \\
+\addlinespace
+\ript & Provide workflow platforms (e.g. Galaxy) for reproducible, shareable analysis pipelines.
+& Must have 
+& DRI-compute services  \\
+\addlinespace
+\ript & Provide cloud-based infrastructure built on, or federated with, open science cloud platforms such as the European Open Science Cloud (EOSC), so that compute, storage, and services can be accessed, shared, and reused across institutions rather than siloed locally.
+& Must have 
+& DRI-compute services  \\
+\addlinespace
+\ript & Provide access to AI models for inference for large-scale data analysis, and agentic coding for coding support.
+& Should have 
+& DRI-compute services  \\
+\end{xltabular}
+
+\subsection{Data (DAT)}
+\newcounter{datcounter}
+\renewcommand{\thedatcounter}{R-DAT-\threedigit{datcounter}}
+\newcommand{\rdat}{\leavevmode\refstepcounter{datcounter}\thedatcounter}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash\hsize=#1\hsize\linewidth=\hsize}X}
+
+\begin{xltabular}{\textwidth}{@{} P{0.6} P{2.4} P{0.5} P{0.5} @{}}
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Priority} & \textbf{Owner} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\rdat & Develop and provide documented programmatic access so that
+compute environments, analysis platforms, and tools can connect to the service directly, enabling AI workflows, data access, and data sharing without manual data transfer.
+& Must have 
+& DRI-data services  \\
+\addlinespace
+\rdat & Coordinate A\&H data services infrastructure through a technically oriented board to ensure consistency of efforts. This include enhancing search and discoverability, as well as distributed long-term storage and backups, to improve preservation, disaster and cybersecurity resilience.
+& Must have 
+& DRI-data services  \\
+\addlinespace
+\rdat & Implement Identity and Authentication Management (IAM) for facilitating access to data repositories.
+& Must have 
+& DRI-data services  \\
+
+\end{xltabular}
+
+%  DRI-enabled research is of critical importance, given the scepticism that persists across the community and the need for accessible and clear training mechanisms. Highlighting DRI use cases with realistic research examples and reusable data, code and workflows can benefit the wider community and generate a ripple effect through the exemplification of reproducible research. 
+% \end{enumerate}
+\subsection{Communities \& Skills Capacity (Access) (ACC)}
+
+\newcounter{acccounter}
+\renewcommand{\theacccounter}{R-ACC-\threedigit{acccounter}}
+\newcommand{\racc}{\leavevmode\refstepcounter{acccounter}\theacccounter}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash\hsize=#1\hsize\linewidth=\hsize}X}
+
+\begin{xltabular}{\textwidth}{@{} P{0.6} P{2.4} P{0.5} P{0.5} @{}}
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Priority} & \textbf{Owner} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\racc & Develop a Community Centre of Excellence (CCE) in Arts and Humanities (A\&H) to support access to Infrastructures, Platforms and Tools.
+& Must have 
+& Community  \\
+\addlinespace
+\racc & Broker access to Digital Research Technical Professionals to support optimising code and workflows, 
+overcoming technical difficulties and navigating unfamiliar infrastructure. 
+& Must have 
+& Community  \\
+\addlinespace
+\racc & Implement capacity-building and skills development using train-the-trainer approaches, peer-to-peer knowledge exchange, disseminating training and showcasing use cases 
+specifically on the use of DRI ecosystems to drive uptake.
+& Must have 
+& Community  \\
+\addlinespace
+\racc & The community should develop a coordinated case for participation; on that basis, the funder should commit
+funding to strategically join the relevant European Research Infrastructure Consortia (ERICs) in A\&H disciplines --- Common Language Resources and Technology Infrastructure (CLARIN), the Digital Research Infrastructure for the Arts and Humanities (DARIAH) and European Research Infrastructure for Heritage Science (E-RHIS).
+& Must have
+& Community and Funder \\
+\addlinespace
+\racc & Commission a scoping study for a UK consortium of Social Sciences and Humanities (SSH) research infrastructures. The study should map the existing ecosystem of services, data, and tools across SSH disciplines, identify the key stakeholders and current initiatives, assess options for governance and funding, and set out a phased roadmap and business case for bringing them together to reduce duplication, improve interoperability, and drive innovation.
+& Should have 
+& Community  \\
+\end{xltabular}
+
+
+\subsection{Policy}
+
+\newcounter{polcounter}
+\renewcommand{\thepolcounter}{R-POL-\threedigit{polcounter}}
+\newcommand{\rpol}{\leavevmode\refstepcounter{polcounter}\thepolcounter}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash\hsize=#1\hsize\linewidth=\hsize}X}
+
+\begin{xltabular}{\textwidth}{@{} P{0.6} P{2.4} P{0.5} P{0.5} @{}}
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Priority} & \textbf{Owner} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot 
+\rpol & Develop use and support mechanisms to accommodate non-linear, iterative and flexible modes of working with data and digital methods
+& Must have 
+& Governance bodies  \\
+\end{xltabular}
+
+\newpage
+\section{Appendix A: Interview questionnaire}
+\label{interview}
+Our aim is to collectively elicit requirements around federation within the current Digital Research Infrastructure (DRI) Arts and Humanities landscape to contribute to the NFCS roadmap development. 
+
+You will be asked to respond to the interview questions included in this document. The interview is expected to last for 60-90 minutes. All interviews will be recorded and then transcribed to facilitate analysis. 
+ 
+
+\subsection*{\hspace*{1cm}Data Characteristics and Scale}
+\begin{enumerate}[label=\arabic*., start=1]
+\item What types of data are you hosting  in your  data  DRI service and in what formats?    
+\item What is the volume of data that you are hosting?    
+\subsection*{FAIR Data Practices and Stewardship}
+\item Do you host sensitive data, and can these be accessed within your data service?
+ \item Do you accommodate various versions or updates of the data that you are hosting?
+ \item Are there any specific metadata schemas that your data service uses?
+ \item Do you support or mint PIDs in your data service (and which form) to facilitate data interoperability?
+ \item Which licences does your service apply to data?
+
+\subsection*{Programmatic Access and Connectivity}
+ \item Could access be arranged to export data from your service to an unspecified group of researchers, e.g.\ to a national compute facility or A\&H focused workshop?
+\item Do you currently provide programmatic access to your data (e.g.\ REST API, SPARQL) and do you have any insights into the digital workflows that this access enables?
+ \item Which identity and authentication methods do you use for enabling access to data?
+\item Can the data service users run automated, batch analyses using your APIs, and would you allow them to if not already implemented?
+ \item Does your data service have an AI strategy and/or policy?
+ 
+\subsection*{Research Impact}
+ \item What are your achievements in making data accessible? Are there any challenges that your users encounter when storing, accessing or sharing data (e.g.\ cost, volume, technical issues, copyright/licencing)?
+  
+  
+\subsection*{Technical Infrastructure and Federation Aspirations}
+ \item Can you describe the infrastructure that underpins your data service? (i.e.\ scale of storage and compute, hosting, backup management, funding, human resources to maintain)
+ \item If there were national services that could replace any of the technology components discussed above (e.g.\ a distributed backed-up storage platform with backups), would you have leveraged it or considered migrating to it? Please explain your priorities in terms of the most useful services.
 \end{enumerate}
-
-
-
+\newpage
 
 \printbibliography
 \end{document}
