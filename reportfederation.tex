@@ -363,7 +363,7 @@ The interviews confirmed that there is significant heterogeneity in data types, 
 Data types currently supported by data services can include images, media, 3D, GIS shapefiles, geophysics data, LIDAR, volumetric data and genomic sequences. While most services host primary assets, others aggregate metadata from institutions, such as Galleries, Libraries, Archives, and Museums (GLAM). A common narrative across all services is the increase in data, specifically from commercial infrastructure projects (e.g., archaeological digs) or large-scale digitisation projects. 
 
 \subsection{FAIR data practices}
-While good practices can be found at the data-service level regarding FAIR practices, further technical coordination across data services is required to meet requirements for discoverability (requirements~\ref{itm:dis,itm:agg}).
+While good practices can be found at the data-service level regarding FAIR practices, further technical coordination across data services is required to meet requirements for discoverability (requirements~\ref{itm:dis} and \ref{itm:agg}).
 
 Building on strong expertise in data curation, the data services employ domain-specific metadata schemas, e.g., the Darwin Core for natural history data, the Monument Inventory Data Standard (MIDAS), and the Spectrum for museum data, and there is a desire to move towards the use of standardised ontologies (requirement~\ref{itm:ont}). DOIs are the standard for datasets across data services, yet some services report a lack of a citation culture.  
 
@@ -374,7 +374,7 @@ When providing access to data beyond licensing restrictions, the primary sensiti
 There is evidence of versioning approaches (see requirement~\ref{itm:ver}), including support for  versioning  records, linking new versions to old ones and allowing researchers to cite specific iterations of data used in citations. For instance, \emph{living records} or continuous updates are a hallmark of biological data (e.g., re-identifying  a species) in the DiSSCo infrastructure.  Moreover, versioning is considered a core requirement for some of the data services going forward.
 
 
-\subsection{Access and Connectivity}
+\subsection{Access and connectivity}
 A common model for access across data services is \emph{Search and Download}. Bulk exports/downloads can be provided by data services, often through scripts or long lists of URLs. 
 However, moving large-scale data to external compute facilities can be a major bottleneck in most cases.
 
@@ -398,8 +398,12 @@ In particular, there was a strong note that a level of security and \emph{arms-l
 
 A universal \emph{pain point} is the difficulty to recruit and retain digital research technical professionals (requirement~\ref{itm:hum}). Services cannot compete with private-sector salaries and data services rely on DRTPs within HEI. 
 
-\subsection{Challenges for federation from data service perspective}
-We group these challenges into basic, intermidate and advanced:
+\subsection{Summary Requirements: Data Services}
+Following from the reflections above, the following requirements are identified:
+
+\begin{enumerate}
+\item Federating search across multiple services from a single query.
+\end{enumerate}
 % \subsubsection{Basic challenges}
 % \begin{enumerate}
 % \item Federating search across multiple services from a single query.
