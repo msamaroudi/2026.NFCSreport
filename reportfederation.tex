@@ -129,7 +129,7 @@ File formats and sizes for workflows, such as migration, movement and emulation,
 (\cite[50]{taylor_2022_10518740}; \cite[7,9]{hawkins_2024_14006955}).
 Researchers require guidance on how software should be managed, documented, stored, maintained, and easily made accessible and findable, including beyond the funding period 
 (\cite[40,41]{romanova_2021_5105938}; \cite[40,41]{taylor_2022_10518740}; \cite[63]{shoaib_sufi_2023_7686348}; \cite[1,29]{hawkins_2024_14006955}).   
-\item DRI should support moving data via batch file transfers or other automated mechanisms. Long-lived or refreshable access tokens can support orchestration across systems 
+\item\label{itm:bat} DRI should support moving data via batch file transfers or other automated mechanisms. Long-lived or refreshable access tokens can support orchestration across systems 
 (\cite[5]{collier25}).  
 
 \item DRI should support a minimum level of centralisation and integration for storing, analysing, and sharing data, while exploring the potential of decentralisation technologies (\cite[1,12]{hawkins_2024_14006955}).  
@@ -376,7 +376,7 @@ There is evidence of versioning approaches (see requirement~\ref{itm:ver}), incl
 
 \subsection{Access and connectivity}
 A common model for access across data services is \emph{Search and Download}. Bulk exports/downloads can be provided by data services, often through scripts or long lists of URLs. 
-However, moving large-scale data to external compute facilities can be a major bottleneck in most cases.
+However, moving large-scale data to external compute facilities can be a major bottleneck in most cases (requirement~\ref{itm:bat}).
 
 In addition, most data services allow for programmatic access to metadata via the HTTP-based Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH). Some, such as ADS and DiSSCo, provide additional REST APIs for access. Often, API rate limits are used. While there is some positive views on enabling data-crawling and batch analysis, the impact on the infrastructure needs to be mitigated. A significant concern is the impact of unregulated AI bots crawling repositories and straining infrastructure. Hence, considerations regarding gorvernance, cybersecurity (requirement~\ref{itm:cyb}) and ensuring local servers cope with demand need to be taken oboard.
 
@@ -398,36 +398,27 @@ In particular, there was a strong note that a level of security and \emph{arms-l
 
 A universal \emph{pain point} is the difficulty to recruit and retain digital research technical professionals (requirement~\ref{itm:hum}). Services cannot compete with private-sector salaries and data services rely on DRTPs within HEI. 
 
-\subsection{Summary Requirements: Data Services}
-Following from the reflections above, the following requirements are identified:
+\section{Requirements for enabling discoverability across data services: Insights from prototype development}
+Further work was conducted to identify the specific requirements for infrastructures and platforms to improve discoverability across a federated data ecosystem. 
+This further work directly addressed the needs identified by research communities and data service providers to improve how research is indexed, visible, and discoverable (requirements~\ref{itm:dis}, \ref{itm:agg}, and \ref{itm:ont}). For this, a proof-of-concept prototype was designed and prototyped, testing various requirements identified during the interview, in particular searching across multiple services from a single query and linking discovered data with compute power. To close the loop from discovery to reference, the proof of concept explored the use of a dedicated citation component which can assemble a formatted reference list directly from a federated result set.
 
+The development of the prototype was an iterative, attritional process of discovery, building out organically from a small set of core functions. At its simplest, the interface provides the ability to take a single argument — a text string or an integer — that can be passed consistently to a range of providers, satisfying the minimal requirements for a search query (string), a result limit (numeric), and an API key, where required (string). Once those core functions were established, the development effort concentrated on adding research value to that baseline, prioritised by the recurrent themes from our interviews with the data services and by their idiosyncrasies. It further prioritised partly inferred usability concerns drawn from the project team's experience running workshops.
+
+\subsection{Lessons learned}
+The development evidenced that:
 \begin{enumerate}
-\item Federating search across multiple services from a single query.
+\item There is no consistent federated single sign-on across the A\&H landscape, and this represents the most concrete ask the roadmap can address. 
+\item Standardised metadata is key for federation. 
+Search parameters vary across services. Yet, given the discipline-specific nature of the metadata, a fully federated search across all data services might not always make sense.
+\item Standardising API access configured for direct access from external applications is required. Though sanctioned mechanisms (e.g., known IP ranges, attested clients, or codified request rate-limit norms) for programmatic access can be the means by which research consumers are distinguished from harvesting bots.
+\item Identifiers below the dataset level remain inconsistent. Without item-level identifiers minted at source, every application has to solve the same disambiguation problem independently, rather than relying on an identifier that does it once for everyone.
+\item Beyond inspection and harmonisation, operations that add research value to the records include ii)\emph{filtering and transformation, reconciliation}, \emph{linking and entity-resolution}, as well as \emph{inference through AI models}.
+\item Pagination is limited even on most accessible services, which currently limits the potential for bulk extraction at the scale required by data services. 
 \end{enumerate}
-% \subsubsection{Basic challenges}
-% \begin{enumerate}
-% \item Federating search across multiple services from a single query.
-% \item Linking discovered data with compute power.
-% \item Reproducible and shareable workflows.
-% \item Reconciliation of entities (proven via Wikidata, though could be extended).
-% \end{enumerate}
-% \subsubsection{Intermediate challenges}
-% \begin{enumerate}
-% \item A translation layer between services (via the SourceProfile node).
-% \item A clear citation pathway from result to reference.
-% \item Data-enrichment pipelines (via the Wikidata Enrich, HTML Extraction, Geocoding and assorted LLM Inference nodes).
-% \end{enumerate}
-% 2.3  Advanced challenges — conceptually addressable in the proposed interface
-% • Moving data at petabyte scale.
-% • A Trusted Research Environment expressed as a node (“TRE-as-Node”), with secure authentication.
-% • Copyright (LLDS, BL) and sensitivity (NHM, ADS) constraints on access.
-% • Deflecting AI crawlers through authorised IP ranges or VPNs built into the infrastructure.
-% • Working with primary data and literature, not only metadata — for example, grey-literature analysis.
 
-\section{Prototyping federation of data services and compute}
+The requirements, recommendations, and proof-of-concept exercise were disseminated at the UK-Ireland Digital Humanities Association Annual Event 2026. [\emph{feedback to be added}]
 
-
-
+This work for the federation roadmap implies that improving discoverability across a federated data ecosystem requires a coordinated effort. A commons-style effort with a shared contract and maintenance burden could support federated access and discovery. It aligns incentives — the party that benefits from being discoverable maintains the means of discovery. A shared, published specification with an agreed-upon, simple description of input, outputs, and the format the data must follow will enable any team — including the data services themselves — to build ways to expose data for their own service without needing to understand the rest of the application. The specification need not be complex; the value lies in its existence and stability.
 
 \section{Recommendations}
 Our understanding of the DRI landscape in the Arts and Humanities and the following recommendations are informed by the activities described above: literature review, conducting interviews with data services, trailing approaches for visual interfaces, shaping and delivering the DISKAH fellowship programme with A\&H researchers, and engaging in various outreach and dissemination opportunities at national and international levels. 
@@ -494,12 +485,12 @@ Such experiences can be distilled into valuable insights and lessons learned, wh
 \endhead
 \bottomrule
 \endfoot
-\rdat & Develop and provide documented programmatic access so that
+\rdat & Provide documented and standardised programmatic access so that
 compute environments, analysis platforms, and tools can connect to the service directly, enabling AI workflows, data access, and data sharing without manual data transfer.
 & Must have 
 & DRI-data services  \\
 \addlinespace
-\rdat & Coordinate A\&H data services infrastructure through a technically oriented board to ensure consistency of efforts. This include enhancing search and discoverability, as well as distributed long-term storage and backups, to improve preservation, disaster and cybersecurity resilience.
+\rdat & Coordinate A\&H data services infrastructure through a technically oriented board to ensure consistency of efforts, in particularwith regards to metadata, API access, Persistent Identifiers (PIDs) amongst others. This include enhancing search and discoverability, as well as distributed long-term storage and backups, to improve preservation, disaster and cybersecurity resilience.
 & Must have 
 & DRI-data services  \\
 \addlinespace
