@@ -385,7 +385,7 @@ Overall, there is a keen interest in a federated interface between data and comp
 
 Moreover, there is a strong interest in federated Identity and Authentication Management (IAM) (requirement~\ref{itm:aut}). Currently, only one data service uses a federated Shibboleth model, while other services rely on institutional accounts or IP-based access within an institution. There was strong interest in providing authenticated user functionality, such as API access, cross-search of sensitive metadata, and access to the Virtual Research Environment (VRE).
 
-\subsection{Research Impact}
+\subsection{Challenges, Opportunities and Impact}
 Certifications (e.g., CoreTrustSeal) and long-term sustainability (see requirement~\ref{item:sus}) are considered positive stories, while enabling access, large-scale aggregation, and the reuse of data are often desired impacts.  For data services, ongoing challenges include sustainably maintaining the infrastructure, long-term preservation and protecting against cybersecurity threats (requirement~\ref{itm:sec}).
 
 A universal \emph{pain point} is the difficulty of recruiting and retaining digital research technical professionals (requirement~\ref{itm:hum}). The data services cannot compete with private-sector salaries and they rely on dRTPs within HEIs, where grading systems often pose barriers to hiring dRTPs. 
@@ -409,7 +409,7 @@ The development evidenced that:
 Search parameters vary across services. Yet, given the discipline-specific nature of the metadata, a fully federated search across all data services might not always make sense.
 \item Standardising API access configured for direct access from external applications is required. Though sanctioned mechanisms (e.g., known IP ranges, attested clients, or codified request rate-limit norms) for programmatic access can be the means by which research consumers are distinguished from harvesting bots.
 \item Identifiers below the dataset level remain inconsistent. Without item-level identifiers minted at source, every application has to solve the same disambiguation problem independently, rather than relying on an identifier that does it once for everyone.
-\item Beyond inspection and harmonisation, operations that add research value to the records include ii)\emph{filtering and transformation, reconciliation}, \emph{linking and entity-resolution}, as well as \emph{inference through AI models}.
+\item Beyond inspection and harmonisation, operations that add research value to the records include \emph{filtering and transformation, reconciliation}, \emph{linking and entity-resolution}, as well as \emph{inference through AI models}.
 \item Pagination is limited even on most accessible services, which currently limits the potential for bulk extraction at the scale required by data services. 
 \end{enumerate}
 
@@ -424,7 +424,7 @@ All these have been distilled into valuable insights and lessons learned, which,
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/fed.png}X
+    \includegraphics[width=0.7\textwidth]{images/fed.png}
     \caption{Diagram of a federated compute stack for the Arts and Humanities}
     \label{fig:myfigure}
 \end{figure}
@@ -484,6 +484,11 @@ All these have been distilled into valuable insights and lessons learned, which,
 \endfoot
 \rdat & Provide documented and standardised programmatic access so that
 compute environments, analysis platforms, and tools can connect to the service directly, enabling AI workflows, data access, and data sharing without manual data transfer.
+& Must have 
+& DRI-data services  \\
+\addlinespace
+\rdat & Establish minimum requirements for data integrity, harmonise towards 
+ontologies, taxonomies and vocabularies across domain schemas, and explore ML methods to assist with cataloguing and standardisation.
 & Must have 
 & DRI-data services  \\
 \addlinespace
